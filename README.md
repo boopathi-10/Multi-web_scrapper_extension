@@ -70,3 +70,4 @@ folder2/
    python3 build_extension.py
    ```
 2. Follow the detailed steps in [CHROME_STORE_GUIDE.md](file:///home/aximsoft/Documents/folder2/CHROME_STORE_GUIDE.md) to register your developer account and upload `dist/scrapeflow-v1.0.0.zip`.
+# Multi-web_scrapper_extension
