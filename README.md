@@ -58,16 +58,7 @@ folder2/
 2. Navigate to `chrome://extensions/`.
 3. Enable **Developer mode** (toggle in upper right corner).
 4. Click **Load unpacked** (top-left).
-5. Select this directory: `/home/aximsoft/Documents/folder2`.
+5. Select this directory: `/home/folder download path`
 6. Open any website and click the ScrapeFlow icon in your extension bar to test.
 
 ---
-
-## Packaging & Publishing to Chrome Web Store
-
-1. Re-run the automated build script whenever you make updates:
-   ```bash
-   python3 build_extension.py
-   ```
-2. Follow the detailed steps in [CHROME_STORE_GUIDE.md](file:///home/aximsoft/Documents/folder2/CHROME_STORE_GUIDE.md) to register your developer account and upload `dist/scrapeflow-v1.0.0.zip`.
-# Multi-web_scrapper_extension
