@@ -1,0 +1,167 @@
+/* ScrapeFlow - Content Script UI Styles */
+
+/* Overlay for element highlighting */
+.scrapeflow-highlight-hover {
+  outline: 2px dashed #4f46e5 !important;
+  outline-offset: -1px !important;
+  background-color: rgba(99, 102, 241, 0.15) !important;
+  cursor: crosshair !important;
+  transition: outline 0.1s ease-in-out !important;
+}
+
+.scrapeflow-highlight-selected {
+  outline: 3px solid #10b981 !important;
+  outline-offset: -1px !important;
+  background-color: rgba(16, 185, 129, 0.2) !important;
+}
+
+/* Floating Inspector Toolbar HUD */
+#scrapeflow-inspector-hud {
+  position: fixed !important;
+  top: 16px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 2147483647 !important;
+  background: #0f172a !important;
+  color: #f8fafc !important;
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 13px !important;
+  padding: 10px 18px !important;
+  border-radius: 9999px !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  border: 1px solid #334155 !important;
+  user-select: none !important;
+  pointer-events: auto !important;
+}
+
+#scrapeflow-inspector-hud .sf-badge {
+  background: #4f46e5 !important;
+  color: #ffffff !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  padding: 3px 8px !important;
+  border-radius: 6px !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+}
+
+#scrapeflow-inspector-hud .sf-hud-text {
+  font-weight: 500 !important;
+  color: #cbd5e1 !important;
+}
+
+#scrapeflow-inspector-hud .sf-hud-btn {
+  background: #dc2626 !important;
+  color: #ffffff !important;
+  border: none !important;
+  padding: 4px 12px !important;
+  border-radius: 9999px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: opacity 0.15s !important;
+}
+
+#scrapeflow-inspector-hud .sf-hud-btn:hover {
+  opacity: 0.85 !important;
+}
+
+/* Floating Element Tag Tooltip */
+#scrapeflow-tooltip {
+  position: fixed !important;
+  z-index: 2147483647 !important;
+  background: #1e293b !important;
+  color: #38bdf8 !important;
+  padding: 4px 8px !important;
+  border-radius: 4px !important;
+  font-family: monospace !important;
+  font-size: 11px !important;
+  pointer-events: none !important;
+  border: 1px solid #475569 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
+  white-space: nowrap !important;
+  display: none;
+}
+
+/* Floating Confirmation Modal */
+#scrapeflow-modal-dialog {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 2147483647 !important;
+  background: #ffffff !important;
+  color: #0f172a !important;
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  width: 440px !important;
+  max-width: 90vw !important;
+  border-radius: 12px !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2) !important;
+  border: 1px solid #cbd5e1 !important;
+  padding: 20px !important;
+  box-sizing: border-box !important;
+}
+
+#scrapeflow-modal-dialog h3 {
+  margin: 0 0 12px 0 !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #1e293b !important;
+}
+
+#scrapeflow-modal-dialog .sf-field-group {
+  margin-bottom: 12px !important;
+}
+
+#scrapeflow-modal-dialog label {
+  display: block !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: #64748b !important;
+  margin-bottom: 4px !important;
+}
+
+#scrapeflow-modal-dialog .sf-code-box {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+  padding: 6px 10px !important;
+  border-radius: 6px !important;
+  font-family: monospace !important;
+  font-size: 12px !important;
+  overflow-x: auto !important;
+  border: 1px solid #e2e8f0 !important;
+  max-height: 80px !important;
+}
+
+#scrapeflow-modal-dialog .sf-actions-row {
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 10px !important;
+  margin-top: 16px !important;
+}
+
+#scrapeflow-modal-dialog button {
+  padding: 8px 14px !important;
+  border-radius: 6px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  border: none !important;
+}
+
+#scrapeflow-modal-dialog .sf-btn-cancel {
+  background: #f1f5f9 !important;
+  color: #475569 !important;
+}
+
+#scrapeflow-modal-dialog .sf-btn-confirm {
+  background: #4f46e5 !important;
+  color: #ffffff !important;
+}
+
+#scrapeflow-modal-dialog .sf-btn-confirm:hover {
+  background: #4338ca !important;
+}

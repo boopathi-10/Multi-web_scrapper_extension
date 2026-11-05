@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScrapeFlow - Web Scraper</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="sf-container">
+    <!-- Header -->
+    <header class="sf-header">
+      <div class="sf-brand">
+        <img src="../icons/icon32.png" alt="Logo" class="sf-logo">
+        <div>
+          <h1 class="sf-title">ScrapeFlow</h1>
+          <p class="sf-subtitle" id="active-domain">Detecting webpage...</p>
+        </div>
+      </div>
+      <button class="sf-btn sf-btn-primary sf-btn-sm" id="btn-visual-inspector" title="Click elements on page to inspect">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        Visual Picker
+      </button>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="sf-tabs">
+      <button class="sf-tab-btn active" data-tab="tab-quick">Quick Scrape</button>
+      <button class="sf-tab-btn" data-tab="tab-custom">Custom Selector</button>
+      <button class="sf-tab-btn" data-tab="tab-preview">
+        Data Preview <span class="sf-counter-badge" id="preview-badge">0</span>
+      </button>
+      <button class="sf-tab-btn" data-tab="tab-settings">Settings</button>
+    </nav>
+
+    <!-- Tab 1: Quick Scrape -->
+    <section class="sf-tab-content active" id="tab-quick">
+      <p class="sf-section-desc">Instantly extract structured elements from the current page:</p>
+      
+      <div class="sf-grid-2">
+        <div class="sf-card" id="card-extract-tables">
+          <div class="sf-card-icon">📊</div>
+          <div class="sf-card-info">
+            <h3>HTML Tables</h3>
+            <p>Convert tables into structured datasets</p>
+          </div>
+          <button class="sf-btn sf-btn-secondary sf-btn-sm" id="btn-scrape-tables">Extract</button>
+        </div>
+
+        <div class="sf-card" id="card-extract-links">
+          <div class="sf-card-icon">🔗</div>
+          <div class="sf-card-info">
+            <h3>Web Links</h3>
+            <p>All URLs, anchor text, and targets</p>
+          </div>
+          <button class="sf-btn sf-btn-secondary sf-btn-sm" id="btn-scrape-links">Extract</button>
+        </div>
+
+        <div class="sf-card" id="card-extract-images">
+          <div class="sf-card-icon">🖼️</div>
+          <div class="sf-card-info">
+            <h3>Page Images</h3>
+            <p>Image URLs, alt tags, and dimensions</p>
+          </div>
+          <button class="sf-btn sf-btn-secondary sf-btn-sm" id="btn-scrape-images">Extract</button>
+        </div>
+
+        <div class="sf-card" id="card-extract-headings">
+          <div class="sf-card-icon">📑</div>
+          <div class="sf-card-info">
+            <h3>Headings (H1-H6)</h3>
+            <p>Page structure and article hierarchy</p>
+          </div>
+          <button class="sf-btn sf-btn-secondary sf-btn-sm" id="btn-scrape-headings">Extract</button>
+        </div>
+      </div>
+
+      <!-- Multiple Tables Selector (Dynamic) -->
+      <div id="table-selector-container" class="sf-panel sf-hidden">
+        <label for="table-dropdown" class="sf-label">Select Table:</label>
+        <div class="sf-flex-row">
+          <select id="table-dropdown" class="sf-select"></select>
+          <button class="sf-btn sf-btn-primary sf-btn-sm" id="btn-load-selected-table">Load Table</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 2: Custom Selector Studio -->
+    <section class="sf-tab-content" id="tab-custom">
+      <div class="sf-form-group">
+        <div class="sf-label-row">
+          <label for="custom-selector-type" class="sf-label">Selector Type:</label>
+          <div class="sf-radio-group">
+            <label><input type="radio" name="selector-type" value="css" checked> CSS</label>
+            <label><input type="radio" name="selector-type" value="xpath"> XPath</label>
+          </div>
+        </div>
+        <div class="sf-input-wrap">
+          <input type="text" id="custom-selector-input" class="sf-input" placeholder="e.g. .product-card .price or //h2">
+        </div>
+      </div>
+
+      <div class="sf-grid-2 sf-gap-sm">
+        <div class="sf-form-group">
+          <label for="custom-attribute-select" class="sf-label">Field to Extract:</label>
+          <select id="custom-attribute-select" class="sf-select">
+            <option value="text">Text Content</option>
+            <option value="href">Link URL (href)</option>
+            <option value="src">Image Source (src)</option>
+            <option value="html">Full HTML</option>
+            <option value="custom">Custom Attribute...</option>
+          </select>
+        </div>
+
+        <div class="sf-form-group sf-hidden" id="custom-attr-name-wrapper">
+          <label for="custom-attr-name-input" class="sf-label">Attribute Name:</label>
+          <input type="text" id="custom-attr-name-input" class="sf-input" placeholder="e.g. data-id, aria-label">
+        </div>
+      </div>
+
+      <div class="sf-button-row">
+        <button class="sf-btn sf-btn-secondary" id="btn-test-selector">Test Selector</button>
+        <button class="sf-btn sf-btn-primary" id="btn-run-custom-scrape">Scrape Matching Elements</button>
+      </div>
+
+      <!-- Presets dropdown -->
+      <div class="sf-preset-section">
+        <label for="selector-preset-select" class="sf-label">Saved Presets:</label>
+        <select id="selector-preset-select" class="sf-select">
+          <option value="">-- Choose a Preset --</option>
+          <option value=".product, .product-item, .product-card">Common Product Cards</option>
+          <option value="h1, h2, h3">Article Headers</option>
+          <option value="article p, .article-body p">Article Paragraphs</option>
+          <option value="nav a, header a">Navigation Links</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- Tab 3: Data Preview & Export -->
+    <section class="sf-tab-content" id="tab-preview">
+      <div class="sf-preview-header">
+        <div class="sf-dataset-meta">
+          <strong id="preview-row-count">0</strong> rows extracted
+        </div>
+        <div class="sf-export-actions">
+          <button class="sf-btn sf-btn-success sf-btn-sm" id="btn-export-csv" disabled>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            CSV
+          </button>
+          <button class="sf-btn sf-btn-secondary sf-btn-sm" id="btn-export-json" disabled>
+            JSON
+          </button>
+          <button class="sf-btn sf-btn-secondary sf-btn-sm" id="btn-copy-clipboard" disabled title="Copy to clipboard">
+            Copy
+          </button>
+        </div>
+      </div>
+
+      <div class="sf-filter-bar">
+        <input type="text" id="preview-filter-input" class="sf-input sf-input-sm" placeholder="Filter rows in preview...">
+        <button class="sf-btn sf-btn-sm" id="btn-clear-preview" title="Clear current dataset">Clear</button>
+      </div>
+
+      <!-- Scrollable Table -->
+      <div class="sf-table-container" id="preview-table-container">
+        <div class="sf-empty-state" id="preview-empty-state">
+          <p>No data extracted yet.</p>
+          <span>Use Quick Scrape or Custom Selector to extract data from this page.</span>
+        </div>
+        <table class="sf-data-table sf-hidden" id="preview-table">
+          <thead id="preview-thead"></thead>
+          <tbody id="preview-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Tab 4: Settings & Publishing Info -->
+    <section class="sf-tab-content" id="tab-settings">
+      <div class="sf-panel">
+        <h3 class="sf-panel-title">Export Settings</h3>
+        <div class="sf-form-group">
+          <label class="sf-label">CSV Delimiter:</label>
+          <select id="setting-delimiter" class="sf-select">
+            <option value=",">Comma (,)</option>
+            <option value=";">Semicolon (;)</option>
+            <option value="\t">Tab (\t)</option>
+          </select>
+        </div>
+        <div class="sf-form-group">
+          <label class="sf-checkbox-label">
+            <input type="checkbox" id="setting-trim" checked> Auto-trim whitespace
+          </label>
+        </div>
+      </div>
+
+      <div class="sf-panel sf-mt-sm">
+        <h3 class="sf-panel-title">Privacy & Security</h3>
+        <p class="sf-text-muted">
+          ScrapeFlow operates 100% locally on your browser. No extracted data, browsing history, or personal information is ever transmitted to external servers.
+        </p>
+        <div class="sf-flex-between sf-mt-sm">
+          <span class="sf-badge-pill">Manifest V3 Compliant</span>
+          <span class="sf-badge-pill">Zero Data Tracking</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Status / Notification Alert Banner -->
+    <footer class="sf-status-bar" id="status-bar">
+      <span id="status-message">Ready</span>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
